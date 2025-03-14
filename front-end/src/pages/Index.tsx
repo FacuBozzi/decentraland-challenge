@@ -3,12 +3,13 @@ import { ethers } from "ethers";
 import WalletConnect from "@/components/WalletConnect";
 import TokenBalance from "@/components/TokenBalance";
 import TransferForm from "@/components/TransferForm";
+import Navbar from "@/components/Navbar";
 import { getTokenBalance, transferTokens } from "@/lib/web3";
 import { useToast } from "@/components/ui/use-toast";
 import { Container, Header, Page } from "decentraland-ui";
 
 // This is where you'll put your deployed token contract address and ABI
-const TOKEN_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const TOKEN_ADDRESS = import.meta.env.VITE_TOKEN_ADDRESS || '';
 const TOKEN_ABI = [
   "function balanceOf(address account) external view returns (uint256)",
   "function transfer(address to, uint256 amount) returns (bool)",
@@ -20,6 +21,8 @@ const Index = () => {
   const [contract, setContract] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+
+  console.log("eladdress", TOKEN_ADDRESS)
 
   const handleWalletConnect = async ({
     provider,
@@ -68,7 +71,8 @@ const Index = () => {
   };
 
   return (
-    // <Page>
+    <>
+      <Navbar account={account} onConnect={handleWalletConnect} /> 
       <Container>
         <div className="max-w-lg mt-20 mx-auto space-y-6">
           <Header size="huge" className="text-center mb-10">
@@ -82,17 +86,13 @@ const Index = () => {
             </div>
           ) : (
             <>
-              <div className="dcl box">
-                <p className="text-sm text-gray-500">Connected Account</p>
-                <p className="font-mono text-sm truncate">{account}</p>
-              </div>
               <TokenBalance balance={balance} isLoading={isLoading} />
               <TransferForm onTransfer={handleTransfer} isLoading={isLoading} />
             </>
           )}
         </div>
       </Container>
-    // </Page>
+    </>
   );
 };
 
