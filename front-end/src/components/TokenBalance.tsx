@@ -14,7 +14,7 @@ const TokenBalance = ({ balance, isLoading }: TokenBalanceProps) => {
       {isLoading ? (
         <Skeleton className="h-10 w-32" />
       ) : (
-        <p className="text-3xl font-bold text-purple-600">{balance}</p>
+        <p className="text-3xl font-bold text-[#ff2d55]">{balance}</p>
       )}
     </Card>
   );
