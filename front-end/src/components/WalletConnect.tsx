@@ -1,5 +1,6 @@
 
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
+import { Button } from "decentraland-ui"
 import { useToast } from "@/components/ui/use-toast";
 import { Wallet } from "lucide-react";
 import { connectWallet } from "@/lib/web3";
@@ -37,10 +38,12 @@ const WalletConnect = ({ onConnect }: WalletConnectProps) => {
     <Button
       onClick={handleConnect}
       disabled={isConnecting}
-      className="bg-purple-600 hover:bg-purple-700 transition-all duration-300 shadow-lg"
+      className="!hover:bg-red-700 !flex !flex-row transition-all duration-300 shadow-lg"
     >
-      <Wallet className="mr-2 h-4 w-4" />
-      {isConnecting ? "Connecting..." : "Connect Wallet"}
+      <Wallet className="!mr-2 h-5 w-5" />
+      <p>
+        {isConnecting ? "Connecting..." : "Connect Wallet"}
+      </p>
     </Button>
   );
 };

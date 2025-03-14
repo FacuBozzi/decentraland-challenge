@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { ethers } from "ethers";
 import WalletConnect from "@/components/WalletConnect";
@@ -6,6 +5,7 @@ import TokenBalance from "@/components/TokenBalance";
 import TransferForm from "@/components/TransferForm";
 import { getTokenBalance, transferTokens } from "@/lib/web3";
 import { useToast } from "@/components/ui/use-toast";
+import { Container, Header, Page } from "decentraland-ui";
 
 // This is where you'll put your deployed token contract address and ABI
 const TOKEN_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
@@ -68,31 +68,31 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-50 p-6">
-      <div className="max-w-lg mx-auto space-y-6">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-purple-900 mb-2">
+    // <Page>
+      <Container>
+        <div className="max-w-lg mt-20 mx-auto space-y-6">
+          <Header size="huge" className="text-center mb-10">
             Token Manager
-          </h1>
-          <p className="text-gray-600">Manage your ERC-20 tokens with ease</p>
-        </div>
+            <Header.Subheader>Manage your ERC-20 tokens with ease</Header.Subheader>
+          </Header>
 
-        {!account ? (
-          <div className="flex justify-center">
-            <WalletConnect onConnect={handleWalletConnect} />
-          </div>
-        ) : (
-          <>
-            <div className="bg-white/40 backdrop-blur-sm rounded-lg p-4 mb-6">
-              <p className="text-sm text-gray-500">Connected Account</p>
-              <p className="font-mono text-sm truncate">{account}</p>
+          {!account ? (
+            <div className="flex justify-center">
+              <WalletConnect onConnect={handleWalletConnect} />
             </div>
-            <TokenBalance balance={balance} isLoading={isLoading} />
-            <TransferForm onTransfer={handleTransfer} isLoading={isLoading} />
-          </>
-        )}
-      </div>
-    </div>
+          ) : (
+            <>
+              <div className="dcl box">
+                <p className="text-sm text-gray-500">Connected Account</p>
+                <p className="font-mono text-sm truncate">{account}</p>
+              </div>
+              <TokenBalance balance={balance} isLoading={isLoading} />
+              <TransferForm onTransfer={handleTransfer} isLoading={isLoading} />
+            </>
+          )}
+        </div>
+      </Container>
+    // </Page>
   );
 };
 
